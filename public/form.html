@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Votre avis — FeedbackHQ</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{background:white;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;box-shadow:0 2px 20px rgba(0,0,0,.07)}
+  .logo{display:flex;align-items:center;gap:8px;margin-bottom:24px}
+  .logo-sq{width:26px;height:26px;background:#E84545;border-radius:6px;flex-shrink:0}
+  .logo-txt{font-size:14px;font-weight:600;color:#1a1a1a}
+  .store-badge{font-size:11px;background:#f3f3f1;color:#666;padding:3px 8px;border-radius:5px}
+  h1{font-size:17px;font-weight:600;color:#1a1a1a;margin-bottom:6px;line-height:1.3}
+  .sub{font-size:12px;color:#999;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+  .anon-badge{background:#EAF3DE;color:#166534;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px}
+  .stars{display:flex;justify-content:center;gap:10px;margin-bottom:28px}
+  .star{cursor:pointer;transition:transform .15s;user-select:none;-webkit-tap-highlight-color:transparent}
+  .star:active{transform:scale(.85)}
+  .star svg{width:44px;height:44px;display:block}
+  .star .s{fill:#e5e5e5;transition:fill .15s}
+  .star.lit .s{fill:#F59E0B}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
+  .field-hint{font-size:10px;color:#bbb;margin-top:4px}
+  .field textarea{width:100%;border:1.5px solid #e5e5e5;border-radius:10px;padding:11px 13px;font-size:13px;font-family:inherit;color:#1a1a1a;resize:none;height:76px;outline:none;transition:border-color .15s;background:#fafafa}
+  .field textarea:focus{border-color:#E84545;background:white}
+  .char-count{font-size:10px;color:#ccc;text-align:right;margin-top:3px}
+  .submit{width:100%;background:#E84545;color:white;border:none;border-radius:12px;padding:15px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s;margin-top:4px}
+  .submit:active{background:#c73a3a}
+  .submit:disabled{background:#ddd;cursor:default;color:#aaa}
+  .rgpd-notice{margin-top:14px;padding:10px 12px;background:#f7f7f5;border-radius:8px;font-size:10px;color:#999;line-height:1.5}
+  .rgpd-notice strong{color:#777;font-weight:500}
+  .thanks{display:none;text-align:center;padding:16px 0}
+  .thanks-circle{width:56px;height:56px;background:#EAF3DE;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+  .thanks-title{font-size:18px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
+  .thanks-sub{font-size:13px;color:#999;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="form-view">
+    <div class="logo">
+      <div class="logo-sq"></div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <div class="logo-txt">FeedbackHQ</div>
+        <div class="store-badge" id="store-name">Chargement…</div>
+      </div>
+    </div>
+    <h1>Comment s'est passée votre visite ?</h1>
+    <div class="sub">
+      <span class="anon-badge">Anonyme</span>
+      <span>30 secondes</span>
+    </div>
+    <div class="stars" id="stars">
+      <div class="star" data-v="1"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
+      <div class="star" data-v="2"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
+      <div class="star" data-v="3"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
+      <div class="star" data-v="4"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
+      <div class="star" data-v="5"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
+    </div>
+    <div class="field">
+      <label for="commentaire">Un commentaire ? <span style="font-weight:400;color:#bbb">(optionnel)</span></label>
+      <textarea id="commentaire" maxlength="500" placeholder="Ce qui vous a plu ou déplu… Ne mentionnez pas votre nom ou vos coordonnées."></textarea>
+      <div class="char-count"><span id="char-left">500</span> caractères restants</div>
+      <div class="field-hint">Ne pas inclure de données personnelles (nom, email, téléphone…)</div>
+    </div>
+    <button class="submit" id="submit-btn" disabled onclick="submitForm()">Envoyer mon avis</button>
+    <div class="rgpd-notice">
+      <strong>Confidentialité</strong> — Cet avis est strictement anonyme. Aucune donnée permettant de vous identifier n'est collectée (pas d'IP, pas de cookie). Les avis sont automatiquement supprimés après 12 mois. Responsable du traitement : BHV Marais.
+    </div>
+  </div>
+  <div class="thanks" id="thanks-view">
+    <div class="thanks-circle">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13l6 6 12-12" stroke="#166634" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="thanks-title">Merci !</div>
+    <div class="thanks-sub">Votre avis anonyme nous aide à améliorer votre expérience en magasin.</div>
+  </div>
+</div>
+<script>
+const params = new URLSearchParams(location.search);
+const magasin = params.get('m') || '';
+const labels = {rivoli:'BHV Rivoli',reims:'Reims',grenoble:'Grenoble',dijon:'Dijon',angers:'Angers',limoges:'Limoges'};
+document.getElementById('store-name').textContent = labels[magasin] || magasin;
+
+let score = 0;
+document.querySelectorAll('.star').forEach(s => {
+  s.addEventListener('click', () => {
+    score = parseInt(s.dataset.v);
+    document.querySelectorAll('.star').forEach((st, i) => st.classList.toggle('lit', i < score));
+    document.getElementById('submit-btn').disabled = false;
+  });
+});
+
+const ta = document.getElementById('commentaire');
+ta.addEventListener('input', () => {
+  document.getElementById('char-left').textContent = 500 - ta.value.length;
+});
+
+async function submitForm() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+  try {
+    const res = await fetch('/api/avis', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ magasin, score, commentaire: ta.value })
+    });
+    if (!res.ok) throw new Error();
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('thanks-view').style.display = 'block';
+  } catch {
+    btn.disabled = false;
+    btn.textContent = 'Envoyer mon avis';
+    alert('Une erreur est survenue, veuillez réessayer.');
+  }
+}
+</script>
+</body>
+</html>
