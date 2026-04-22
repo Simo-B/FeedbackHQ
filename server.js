@@ -159,4 +159,5 @@ app.get('/api/export', (req, res) => {
 });
 
 app.get('/admin', (_, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+app.get('/form', (_, res) => res.sendFile(path.join(__dirname, 'public', 'form.html')));
 app.listen(PORT, () => console.log(`FeedbackHQ [${IS_PROD?'PROD':'DEV'}] → http://localhost:${PORT}`));
