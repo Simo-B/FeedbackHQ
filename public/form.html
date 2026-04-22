@@ -3,120 +3,218 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Votre avis — FeedbackHQ</title>
+<title>Avis client — FeedbackHQ</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-  .card{background:white;border-radius:20px;padding:28px 24px;max-width:360px;width:100%;box-shadow:0 2px 20px rgba(0,0,0,.07)}
-  .logo{display:flex;align-items:center;gap:8px;margin-bottom:24px}
-  .logo-sq{width:26px;height:26px;background:#E84545;border-radius:6px;flex-shrink:0}
-  .logo-txt{font-size:14px;font-weight:600;color:#1a1a1a}
-  .store-badge{font-size:11px;background:#f3f3f1;color:#666;padding:3px 8px;border-radius:5px}
-  h1{font-size:17px;font-weight:600;color:#1a1a1a;margin-bottom:6px;line-height:1.3}
-  .sub{font-size:12px;color:#999;margin-bottom:24px;display:flex;align-items:center;gap:10px}
-  .anon-badge{background:#EAF3DE;color:#166534;font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px}
-  .stars{display:flex;justify-content:center;gap:10px;margin-bottom:28px}
-  .star{cursor:pointer;transition:transform .15s;user-select:none;-webkit-tap-highlight-color:transparent}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{background:#fff;border-radius:20px;padding:28px 24px;max-width:360px;width:100%}
+  .logo{display:flex;align-items:center;gap:8px;margin-bottom:28px}
+  .logo-sq{width:24px;height:24px;background:#0a0a0a;border-radius:6px;flex-shrink:0}
+  .logo-txt{font-size:13px;font-weight:600;color:#0a0a0a;letter-spacing:-.01em}
+  .step{display:none}.step.active{display:block}
+  .step-label{font-size:10px;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+  .step-title{font-size:18px;font-weight:700;color:#0a0a0a;margin-bottom:6px;line-height:1.25}
+  .step-sub{font-size:13px;color:#999;margin-bottom:24px;line-height:1.4}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+  .field input,.field select{width:100%;border:1.5px solid #e5e5e5;border-radius:10px;padding:12px 14px;font-size:14px;font-family:inherit;color:#0a0a0a;outline:none;transition:border-color .15s;background:#fafafa;-webkit-appearance:none}
+  .field input:focus,.field select:focus{border-color:#0a0a0a;background:#fff}
+  .field input::placeholder{color:#bbb}
+  .questions{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+  .q-item{border:1.5px solid #eee;border-radius:12px;padding:13px 14px}
+  .q-text{font-size:13px;font-weight:500;color:#0a0a0a;margin-bottom:10px;line-height:1.4}
+  .q-btns{display:flex;gap:6px}
+  .q-btn{flex:1;padding:8px;border-radius:8px;border:1.5px solid #e5e5e5;background:#fff;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;color:#555;transition:all .15s}
+  .q-btn.yes.selected{background:#0a0a0a;border-color:#0a0a0a;color:#fff}
+  .q-btn.no.selected{background:#f0f0f0;border-color:#ccc;color:#0a0a0a}
+  .stars-wrap{margin-bottom:24px}
+  .stars-label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+  .stars{display:flex;justify-content:center;gap:8px}
+  .star{cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent}
   .star:active{transform:scale(.85)}
-  .star svg{width:44px;height:44px;display:block}
+  .star svg{width:40px;height:40px;display:block}
   .star .s{fill:#e5e5e5;transition:fill .15s}
-  .star.lit .s{fill:#F59E0B}
-  .field{margin-bottom:18px}
-  .field label{display:block;font-size:12px;font-weight:500;color:#555;margin-bottom:5px}
-  .field-hint{font-size:10px;color:#bbb;margin-top:4px}
-  .field textarea{width:100%;border:1.5px solid #e5e5e5;border-radius:10px;padding:11px 13px;font-size:13px;font-family:inherit;color:#1a1a1a;resize:none;height:76px;outline:none;transition:border-color .15s;background:#fafafa}
-  .field textarea:focus{border-color:#E84545;background:white}
-  .char-count{font-size:10px;color:#ccc;text-align:right;margin-top:3px}
-  .submit{width:100%;background:#E84545;color:white;border:none;border-radius:12px;padding:15px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s;margin-top:4px}
-  .submit:active{background:#c73a3a}
-  .submit:disabled{background:#ddd;cursor:default;color:#aaa}
-  .rgpd-notice{margin-top:14px;padding:10px 12px;background:#f7f7f5;border-radius:8px;font-size:10px;color:#999;line-height:1.5}
-  .rgpd-notice strong{color:#777;font-weight:500}
-  .thanks{display:none;text-align:center;padding:16px 0}
-  .thanks-circle{width:56px;height:56px;background:#EAF3DE;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
-  .thanks-title{font-size:18px;font-weight:600;color:#1a1a1a;margin-bottom:6px}
-  .thanks-sub{font-size:13px;color:#999;line-height:1.5}
+  .star.lit .s{fill:#0a0a0a}
+  .btn-main{width:100%;background:#0a0a0a;color:#fff;border:none;border-radius:12px;padding:15px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .15s;letter-spacing:-.01em}
+  .btn-main:disabled{background:#e5e5e5;color:#bbb;cursor:default}
+  .btn-main:not(:disabled):active{opacity:.85}
+  .btn-ghost{width:100%;background:transparent;color:#bbb;border:none;font-size:12px;font-family:inherit;cursor:pointer;padding:12px;margin-top:4px}
+  .thanks{text-align:center;padding:20px 0}
+  .thanks-circle{width:56px;height:56px;background:#0a0a0a;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .thanks-title{font-size:20px;font-weight:700;color:#0a0a0a;margin-bottom:6px}
+  .thanks-sub{font-size:13px;color:#999;line-height:1.5;margin-bottom:24px}
+  .thanks-reset{width:100%;background:#0a0a0a;color:#fff;border:none;border-radius:12px;padding:14px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="card">
-  <div id="form-view">
+
+  <!-- ÉTAPE 1 : Identification vendeur -->
+  <div class="step active" id="step-init">
     <div class="logo">
       <div class="logo-sq"></div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <div class="logo-txt">FeedbackHQ</div>
-        <div class="store-badge" id="store-name">Chargement…</div>
-      </div>
+      <span class="logo-txt">FeedbackHQ</span>
     </div>
-    <h1>Comment s'est passée votre visite ?</h1>
-    <div class="sub">
-      <span class="anon-badge">Anonyme</span>
-      <span>30 secondes</span>
-    </div>
-    <div class="stars" id="stars">
-      <div class="star" data-v="1"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
-      <div class="star" data-v="2"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
-      <div class="star" data-v="3"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
-      <div class="star" data-v="4"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
-      <div class="star" data-v="5"><svg viewBox="0 0 44 44"><polygon class="s" points="22,3 27,16 41,17 31,27 34,41 22,34 10,41 13,27 3,17 17,16"/></svg></div>
+    <div class="step-label">Identification</div>
+    <div class="step-title">Bonjour !</div>
+    <div class="step-sub">Sélectionnez votre magasin et saisissez votre identifiant pour commencer.</div>
+    <div class="field">
+      <label>Magasin</label>
+      <select id="magasin-select">
+        <option value="">Sélectionner…</option>
+        <option value="rivoli">BHV Rivoli</option>
+        <option value="reims">Reims</option>
+        <option value="grenoble">Grenoble</option>
+        <option value="dijon">Dijon</option>
+        <option value="angers">Angers</option>
+        <option value="limoges">Limoges</option>
+      </select>
     </div>
     <div class="field">
-      <label for="commentaire">Un commentaire ? <span style="font-weight:400;color:#bbb">(optionnel)</span></label>
-      <textarea id="commentaire" maxlength="500" placeholder="Ce qui vous a plu ou déplu… Ne mentionnez pas votre nom ou vos coordonnées."></textarea>
-      <div class="char-count"><span id="char-left">500</span> caractères restants</div>
-      <div class="field-hint">Ne pas inclure de données personnelles (nom, email, téléphone…)</div>
+      <label>Votre identifiant</label>
+      <input type="text" id="vendeur-id" placeholder="Ex : V-042" autocomplete="off" autocapitalize="characters">
     </div>
-    <button class="submit" id="submit-btn" disabled onclick="submitForm()">Envoyer mon avis</button>
-    <div class="rgpd-notice">
-      <strong>Confidentialité</strong> — Cet avis est strictement anonyme. Aucune donnée permettant de vous identifier n'est collectée (pas d'IP, pas de cookie). Les avis sont automatiquement supprimés après 12 mois. Responsable du traitement : BHV Marais.
+    <button class="btn-main" id="btn-start" disabled onclick="startAvis()">Commencer →</button>
+  </div>
+
+  <!-- ÉTAPE 2 : Questionnaire -->
+  <div class="step" id="step-avis">
+    <div class="logo">
+      <div class="logo-sq"></div>
+      <span class="logo-txt">FeedbackHQ</span>
+      <span style="margin-left:auto;font-size:11px;color:#bbb" id="vendeur-display"></span>
+    </div>
+    <div class="step-label">Avis client</div>
+    <div class="step-title">Réponses du client</div>
+    <div class="step-sub" style="margin-bottom:16px">Posez les questions à voix haute et cochez les réponses.</div>
+    <div class="questions" id="questions"></div>
+    <div class="stars-wrap">
+      <div class="stars-label">Note globale du client</div>
+      <div class="stars" id="stars">
+        <div class="star" data-v="1"><svg viewBox="0 0 40 40"><polygon class="s" points="20,3 24,14 36,15 27,23 30,35 20,29 10,35 13,23 4,15 16,14"/></svg></div>
+        <div class="star" data-v="2"><svg viewBox="0 0 40 40"><polygon class="s" points="20,3 24,14 36,15 27,23 30,35 20,29 10,35 13,23 4,15 16,14"/></svg></div>
+        <div class="star" data-v="3"><svg viewBox="0 0 40 40"><polygon class="s" points="20,3 24,14 36,15 27,23 30,35 20,29 10,35 13,23 4,15 16,14"/></svg></div>
+        <div class="star" data-v="4"><svg viewBox="0 0 40 40"><polygon class="s" points="20,3 24,14 36,15 27,23 30,35 20,29 10,35 13,23 4,15 16,14"/></svg></div>
+        <div class="star" data-v="5"><svg viewBox="0 0 40 40"><polygon class="s" points="20,3 24,14 36,15 27,23 30,35 20,29 10,35 13,23 4,15 16,14"/></svg></div>
+      </div>
+    </div>
+    <button class="btn-main" id="btn-submit" disabled onclick="submitForm()">Enregistrer l'avis</button>
+    <button class="btn-ghost" onclick="showStep('step-init')">← Changer d'identifiant</button>
+  </div>
+
+  <!-- MERCI -->
+  <div class="step" id="step-merci">
+    <div class="thanks">
+      <div class="thanks-circle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5 11-11" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="thanks-title">Enregistré !</div>
+      <div class="thanks-sub">L'avis a bien été sauvegardé.</div>
+      <button class="thanks-reset" onclick="nextAvis()">Nouvel avis →</button>
     </div>
   </div>
-  <div class="thanks" id="thanks-view">
-    <div class="thanks-circle">
-      <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 13l6 6 12-12" stroke="#166634" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <div class="thanks-title">Merci !</div>
-    <div class="thanks-sub">Votre avis anonyme nous aide à améliorer votre expérience en magasin.</div>
-  </div>
+
 </div>
 <script>
-const params = new URLSearchParams(location.search);
-const magasin = params.get('m') || '';
-const labels = {rivoli:'BHV Rivoli',reims:'Reims',grenoble:'Grenoble',dijon:'Dijon',angers:'Angers',limoges:'Limoges'};
-document.getElementById('store-name').textContent = labels[magasin] || magasin;
+const QUESTIONS = [
+  'Le client a-t-il été accueilli rapidement ?',
+  'Avez-vous répondu à ses besoins ?',
+  'A-t-il trouvé ce qu\'il cherchait ?',
+  'Le magasin était-il propre et bien organisé ?',
+  'Le client recommanderait-il ce magasin ?'
+];
 
 let score = 0;
+let answers = {};
+let vendeurId = '';
+let magasin = '';
+
+// Persistance locale identifiant + magasin
+const saved = JSON.parse(localStorage.getItem('fhq') || '{}');
+if (saved.vendeurId) document.getElementById('vendeur-id').value = saved.vendeurId;
+if (saved.magasin) document.getElementById('magasin-select').value = saved.magasin;
+
+const vidInput = document.getElementById('vendeur-id');
+const mSelect = document.getElementById('magasin-select');
+const btnStart = document.getElementById('btn-start');
+
+function checkInit() {
+  btnStart.disabled = !vidInput.value.trim() || !mSelect.value;
+}
+vidInput.addEventListener('input', checkInit);
+mSelect.addEventListener('change', checkInit);
+checkInit();
+
+// Render questions
+document.getElementById('questions').innerHTML = QUESTIONS.map((q, i) => `
+  <div class="q-item" id="q${i}">
+    <div class="q-text">${q}</div>
+    <div class="q-btns">
+      <button class="q-btn yes" onclick="answer(${i}, true, this)">Oui</button>
+      <button class="q-btn no" onclick="answer(${i}, false, this)">Non</button>
+    </div>
+  </div>
+`).join('');
+
+function answer(i, val, btn) {
+  answers[i] = val;
+  document.getElementById('q'+i).querySelectorAll('.q-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  checkSubmit();
+}
+
 document.querySelectorAll('.star').forEach(s => {
   s.addEventListener('click', () => {
     score = parseInt(s.dataset.v);
     document.querySelectorAll('.star').forEach((st, i) => st.classList.toggle('lit', i < score));
-    document.getElementById('submit-btn').disabled = false;
+    checkSubmit();
   });
 });
 
-const ta = document.getElementById('commentaire');
-ta.addEventListener('input', () => {
-  document.getElementById('char-left').textContent = 500 - ta.value.length;
-});
+function checkSubmit() {
+  document.getElementById('btn-submit').disabled =
+    !(Object.keys(answers).length === QUESTIONS.length && score > 0);
+}
+
+function startAvis() {
+  vendeurId = vidInput.value.trim().toUpperCase();
+  magasin = mSelect.value;
+  localStorage.setItem('fhq', JSON.stringify({ vendeurId, magasin }));
+  document.getElementById('vendeur-display').textContent = vendeurId;
+  showStep('step-avis');
+}
+
+function showStep(id) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
 async function submitForm() {
-  const btn = document.getElementById('submit-btn');
+  const btn = document.getElementById('btn-submit');
   btn.disabled = true;
-  btn.textContent = 'Envoi…';
+  btn.textContent = 'Enregistrement…';
+  const reponses = QUESTIONS.map((q, i) => ({ question: q, reponse: answers[i] }));
   try {
     const res = await fetch('/api/avis', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ magasin, score, commentaire: ta.value })
+      body: JSON.stringify({ magasin, score, vendeur_id: vendeurId, reponses })
     });
     if (!res.ok) throw new Error();
-    document.getElementById('form-view').style.display = 'none';
-    document.getElementById('thanks-view').style.display = 'block';
+    showStep('step-merci');
   } catch {
     btn.disabled = false;
-    btn.textContent = 'Envoyer mon avis';
-    alert('Une erreur est survenue, veuillez réessayer.');
+    btn.textContent = 'Enregistrer l\'avis';
+    alert('Erreur, veuillez réessayer.');
   }
+}
+
+function nextAvis() {
+  score = 0; answers = {};
+  document.querySelectorAll('.star').forEach(s => s.classList.remove('lit'));
+  document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('btn-submit').disabled = true;
+  showStep('step-avis');
 }
 </script>
 </body>

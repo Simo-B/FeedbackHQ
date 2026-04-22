@@ -6,55 +6,64 @@
 <title>Admin — FeedbackHQ</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a1a;min-height:100vh}
-  .topbar{background:white;border-bottom:1px solid #eee;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#0a0a0a;min-height:100vh}
+  .topbar{background:#0a0a0a;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
   .logo{display:flex;align-items:center;gap:8px}
-  .logo-sq{width:22px;height:22px;background:#E84545;border-radius:5px}
-  .logo-txt{font-size:14px;font-weight:600}
-  .live{font-size:11px;color:#888;display:flex;align-items:center;gap:5px}
-  .dot{width:6px;height:6px;border-radius:50%;background:#2ECC71;animation:pulse 2s infinite}
+  .logo-sq{width:20px;height:20px;background:#fff;border-radius:4px}
+  .logo-txt{font-size:13px;font-weight:600;color:#fff;letter-spacing:-.01em}
+  .live{font-size:11px;color:#666;display:flex;align-items:center;gap:5px}
+  .dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-  .content{max-width:900px;margin:0 auto;padding:24px 20px}
+  .topbar-right{display:flex;align-items:center;gap:8px}
+  .btn-export{font-size:11px;padding:6px 12px;border-radius:8px;border:1px solid #333;background:transparent;color:#fff;cursor:pointer;font-family:inherit;transition:background .15s}
+  .btn-export:hover{background:#1a1a1a}
+  .content{max-width:860px;margin:0 auto;padding:24px 20px}
   .store-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-  .stab{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid #ddd;cursor:pointer;background:white;color:#555;transition:all .15s;font-family:inherit}
-  .stab.active{background:#E84545;border-color:#E84545;color:white}
+  .stab{font-size:12px;padding:6px 14px;border-radius:20px;border:1.5px solid #ddd;cursor:pointer;background:#fff;color:#555;transition:all .15s;font-family:inherit;font-weight:500}
+  .stab.active{background:#0a0a0a;border-color:#0a0a0a;color:#fff}
   .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
-  .mc{background:white;border-radius:12px;padding:16px;border:1px solid #eee}
-  .mc-label{font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
-  .mc-val{font-size:24px;font-weight:600}
-  .mc-sub{font-size:11px;color:#aaa;margin-top:3px}
-  .section-title{font-size:12px;font-weight:500;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+  .mc{background:#fff;border-radius:12px;padding:16px;border:1px solid #eee}
+  .mc-label{font-size:10px;color:#999;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  .mc-val{font-size:26px;font-weight:700;color:#0a0a0a;letter-spacing:-.02em}
+  .mc-sub{font-size:11px;color:#bbb;margin-top:3px}
+  .section-title{font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
   .list{display:flex;flex-direction:column;gap:8px}
-  .item{background:white;border:1px solid #eee;border-radius:12px;padding:14px 16px;transition:border-color .15s}
-  .item.unread{border-left:3px solid #E84545;border-radius:0 12px 12px 0}
-  .item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px}
-  .item-store{font-size:13px;font-weight:600}
-  .stars{display:flex;gap:2px;margin-bottom:6px}
-  .star-icon{width:14px;height:14px}
-  .item-text{font-size:13px;color:#555;line-height:1.5;margin-bottom:10px}
-  .item-text.empty{font-style:italic;color:#bbb}
-  .item-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .chip{font-size:11px;font-weight:500;padding:3px 8px;border-radius:6px}
-  .chip-g{background:#EAF3DE;color:#166534}
-  .chip-o{background:#FEF3C7;color:#92400E}
-  .chip-r{background:#FEE2E2;color:#991B1B}
-  .chip-done{background:#f0f0f0;color:#888}
-  .btn-sm{font-size:11px;padding:5px 10px;border-radius:8px;border:1px solid #ddd;background:white;cursor:pointer;font-family:inherit;color:#555;transition:all .15s}
-  .btn-sm:hover{background:#f5f5f5}
-  .btn-red{background:#E84545;border-color:#E84545;color:white}
-  .btn-red:hover{background:#c73a3a}
-  .reply-box{margin-top:10px;border-top:1px solid #f0f0f0;padding-top:10px;display:none}
+  .item{background:#fff;border:1px solid #eee;border-radius:12px;padding:16px;transition:border-color .15s}
+  .item.unread{border-left:3px solid #0a0a0a;border-radius:0 12px 12px 0}
+  .item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+  .item-meta{font-size:12px;font-weight:600;color:#0a0a0a}
+  .item-sub{font-size:11px;color:#bbb;margin-top:2px}
+  .stars{display:flex;gap:2px;margin-bottom:10px}
+  .star-sm{width:13px;height:13px}
+  .chip{font-size:10px;font-weight:600;padding:3px 8px;border-radius:5px}
+  .chip-g{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+  .chip-o{background:#fffbeb;color:#92400e;border:1px solid #fde68a}
+  .chip-r{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+  .reponses{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;background:#fafafa;border-radius:8px;padding:10px 12px}
+  .rep-row{display:flex;align-items:center;justify-content:space-between;font-size:11px}
+  .rep-q{color:#555;flex:1}
+  .rep-v{font-weight:600;padding:2px 6px;border-radius:4px;font-size:10px;flex-shrink:0;margin-left:8px}
+  .rep-yes{background:#f0fdf4;color:#166534}
+  .rep-no{background:#fef2f2;color:#991b1b}
+  .vendeur-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;background:#f5f5f3;border:1px solid #e5e5e5;padding:2px 8px;border-radius:5px;color:#555;margin-bottom:10px}
+  .item-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:10px;border-top:1px solid #f0f0f0}
+  .btn-sm{font-size:11px;padding:5px 10px;border-radius:7px;border:1px solid #e5e5e5;background:#fff;cursor:pointer;font-family:inherit;color:#555;font-weight:500;transition:all .15s}
+  .btn-sm:hover{background:#f5f5f3}
+  .btn-dark{background:#0a0a0a;border-color:#0a0a0a;color:#fff}
+  .btn-dark:hover{background:#222}
+  .reply-box{margin-top:10px;display:none}
   .reply-box.open{display:block}
-  .reply-box textarea{width:100%;border:1px solid #e5e5e5;border-radius:8px;padding:10px 12px;font-size:12px;font-family:inherit;color:#1a1a1a;resize:none;height:64px;outline:none;background:#fafafa}
-  .reply-box textarea:focus{border-color:#E84545}
-  .reply-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}
-  .empty-state{text-align:center;padding:40px;color:#aaa;font-size:14px;background:white;border-radius:12px;border:1px solid #eee}
-  .qr-section{margin-top:32px}
-  .qr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-  .qr-card{background:white;border:1px solid #eee;border-radius:12px;padding:16px;text-align:center}
-  .qr-city{font-size:12px;font-weight:600;margin-bottom:10px}
-  .qr-img{margin:0 auto 8px;width:80px;height:80px}
-  .qr-url{font-size:9px;color:#aaa;word-break:break-all;line-height:1.4}
+  .reply-box textarea{width:100%;border:1.5px solid #e5e5e5;border-radius:8px;padding:10px 12px;font-size:12px;font-family:inherit;color:#0a0a0a;resize:none;height:60px;outline:none;background:#fafafa}
+  .reply-box textarea:focus{border-color:#0a0a0a}
+  .reply-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:6px}
+  .note-interne{font-size:11px;background:#fafafa;border-radius:6px;padding:6px 10px;color:#666;margin-bottom:8px;border-left:2px solid #e5e5e5}
+  .empty-state{text-align:center;padding:40px;color:#bbb;font-size:14px;background:#fff;border-radius:12px;border:1px solid #eee}
+
+
+
+
+
+
   @media(max-width:600px){.metrics{grid-template-columns:repeat(2,1fr)}.qr-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -64,26 +73,28 @@
     <div class="logo-sq"></div>
     <span class="logo-txt">FeedbackHQ</span>
   </div>
-  <div class="live"><div class="dot"></div>En direct</div>
+  <div class="topbar-right">
+    <div class="live"><div class="dot"></div><span style="color:#888">En direct</span></div>
+    <button class="btn-export" onclick="exportCSV()">Exporter CSV</button>
+  </div>
 </div>
+
 <div class="content">
   <div class="store-tabs" id="store-tabs"></div>
   <div class="metrics" id="metrics"></div>
   <div class="section-title" id="list-label"></div>
   <div class="list" id="list"></div>
-  <div class="qr-section">
-    <div class="section-title">QR codes par magasin</div>
     <div class="qr-grid" id="qr-grid"></div>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <script>
 const MAGASINS = ['tous','rivoli','reims','grenoble','dijon','angers','limoges'];
 const LABELS = {tous:'Tous',rivoli:'Rivoli',reims:'Reims',grenoble:'Grenoble',dijon:'Dijon',angers:'Angers',limoges:'Limoges'};
 let current = 'tous';
 
 function starsSVG(n){
-  return Array.from({length:5},(_,i)=>`<svg class="star-icon" viewBox="0 0 14 14"><polygon points="7,1 8.5,5 13,5.5 9.5,8.5 10.5,13 7,10.5 3.5,13 4.5,8.5 1,5.5 5.5,5" fill="${i<n?'#F59E0B':'#e5e5e5'}"/></svg>`).join('');
+  return Array.from({length:5},(_,i)=>`<svg class="star-sm" viewBox="0 0 13 13"><polygon points="6.5,1 8,4.5 12,5 9,7.5 10,11 6.5,9 3,11 4,7.5 1,5 5,4.5" fill="${i<n?'#0a0a0a':'#e5e5e5'}"/></svg>`).join('');
 }
 function chip(s){
   if(s>=4) return `<span class="chip chip-g">${s}/5</span>`;
@@ -103,8 +114,8 @@ async function loadStats(){
   const s=await fetch(url).then(r=>r.json());
   const pct=s.total?Math.round(s.positifs/s.total*100):0;
   document.getElementById('metrics').innerHTML=`
-    <div class="mc"><div class="mc-label">Avis reçus</div><div class="mc-val">${s.total}</div><div class="mc-sub">ce mois</div></div>
-    <div class="mc"><div class="mc-label">Note moyenne</div><div class="mc-val" style="color:#E84545">${s.moyenne||'—'}<span style="font-size:14px;font-weight:400;color:#aaa">/5</span></div><div class="mc-sub">${s.non_traites} non traité${s.non_traites!==1?'s':''}</div></div>
+    <div class="mc"><div class="mc-label">Avis reçus</div><div class="mc-val">${s.total}</div><div class="mc-sub">total collecté</div></div>
+    <div class="mc"><div class="mc-label">Note moyenne</div><div class="mc-val">${s.moyenne||'—'}<span style="font-size:14px;font-weight:400;color:#bbb">/5</span></div><div class="mc-sub">${s.non_traites} non traité${s.non_traites!==1?'s':''}</div></div>
     <div class="mc"><div class="mc-label">Satisfaction</div><div class="mc-val">${pct}%</div><div class="mc-sub">notes 4 et 5</div></div>
   `;
 }
@@ -120,28 +131,39 @@ async function loadAvis(){
   document.getElementById('list').innerHTML=avis.map(f=>`
     <div class="item${f.traite?'':' unread'}" id="i${f.id}">
       <div class="item-top">
-        <div class="item-store">${current==='tous'?LABELS[f.magasin]+' · ':''}<span style="font-weight:400;color:#aaa;font-size:12px">${timeAgo(f.created_at)}</span></div>
+        <div>
+          <div class="item-meta">${current==='tous'?LABELS[f.magasin]+' · ':''}<span style="font-weight:400;color:#bbb">${timeAgo(f.created_at)}</span></div>
+        </div>
         <div style="display:flex;align-items:center;gap:6px">
           ${chip(f.score)}
-          ${f.traite?'':'<span style="font-size:10px;color:#E84545;font-weight:600">nouveau</span>'}
+          ${f.traite?'':'<span style="font-size:10px;color:#0a0a0a;font-weight:700;background:#f0f0f0;padding:2px 6px;border-radius:4px">nouveau</span>'}
         </div>
       </div>
+      ${f.vendeur_id?`<div class="vendeur-tag"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="3.5" r="2" stroke="#999" stroke-width="1.2"/><path d="M1 9c0-2.2 1.8-4 4-4s4 1.8 4 4" stroke="#999" stroke-width="1.2" stroke-linecap="round"/></svg>${f.vendeur_id}</div>`:''}
       <div class="stars">${starsSVG(f.score)}</div>
-      ${f.commentaire?`<div class="item-text">${f.commentaire}</div>`:`<div class="item-text empty">Aucun commentaire.</div>`}
-      ${f.note_interne?`<div style="font-size:11px;background:#f9f9f9;border-radius:6px;padding:6px 8px;color:#666;margin-bottom:8px">Note interne : ${f.note_interne}</div>`:''}
+      ${f.reponses && f.reponses.length ? `
+        <div class="reponses">
+          ${f.reponses.map(r=>`
+            <div class="rep-row">
+              <span class="rep-q">${r.question}</span>
+              <span class="rep-v ${r.reponse?'rep-yes':'rep-no'}">${r.reponse?'Oui':'Non'}</span>
+            </div>
+          `).join('')}
+        </div>` : ''}
+      ${f.note_interne?`<div class="note-interne">Note : ${f.note_interne}</div>`:''}
       <div class="item-actions">
         <div style="display:flex;gap:6px">
           <button class="btn-sm" onclick="toggleReply('${f.id}')">Annoter</button>
           ${f.traite
-            ?`<button class="btn-sm chip-done" onclick="setTraite('${f.id}',0)">Rouvrir</button>`
-            :`<button class="btn-sm btn-red" onclick="setTraite('${f.id}',1)">Marquer traité</button>`}
+            ?`<button class="btn-sm" onclick="setTraite('${f.id}',0)">Rouvrir</button>`
+            :`<button class="btn-sm btn-dark" onclick="setTraite('${f.id}',1)">Marquer traité</button>`}
         </div>
-        <span style="font-size:11px;color:${f.traite?'#aaa':'#E84545'}">${f.traite?'traité':'en attente'}</span>
+        <span style="font-size:11px;color:${f.traite?'#bbb':'#0a0a0a'};font-weight:500">${f.traite?'traité':'en attente'}</span>
       </div>
       <div class="reply-box" id="r${f.id}">
         <textarea id="note${f.id}" placeholder="Note interne, action corrective…">${f.note_interne||''}</textarea>
         <div class="reply-actions">
-          <button class="btn-sm btn-red" onclick="saveNote('${f.id}')">Enregistrer</button>
+          <button class="btn-sm btn-dark" onclick="saveNote('${f.id}')">Enregistrer</button>
         </div>
       </div>
     </div>
@@ -167,27 +189,17 @@ async function setTraite(id,val){
 async function saveNote(id){
   const note=document.getElementById('note'+id).value;
   await fetch(`/api/avis/${id}`,{method:'PATCH',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({traite:0,note_interne:note})});
+    body:JSON.stringify({traite:false,note_interne:note})});
   document.getElementById('r'+id).classList.remove('open');
   await loadAvis();
 }
 
-function renderQR(){
-  const base=`${location.origin}/r?m=`;
-  document.getElementById('qr-grid').innerHTML=MAGASINS.filter(m=>m!=='tous').map(m=>`
-    <div class="qr-card">
-      <div class="qr-city">${LABELS[m]}</div>
-      <div class="qr-img" id="qr-${m}"></div>
-      <div class="qr-url">${base}${m}</div>
-    </div>
-  `).join('');
-  MAGASINS.filter(m=>m!=='tous').forEach(m=>{
-    try{new QRCode(document.getElementById('qr-'+m),{text:base+m,width:80,height:80,colorDark:'#1a1a1a',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});}catch(e){}
-  });
+function exportCSV(){
+  const url=current==='tous'?'/api/export':`/api/export?magasin=${current}`;
+  window.location.href=url;
 }
 
 setInterval(async()=>{await loadStats();await loadAvis();},30000);
-renderTabs();loadStats();loadAvis();renderQR();
-</script>
+renderTabs();loadStats();loadAvis();</script>
 </body>
 </html>
